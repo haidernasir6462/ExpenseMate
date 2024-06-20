@@ -3,7 +3,6 @@
 
 Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and managing your budget efficiently. Whether you want to monitor your daily spending or plan for future financial goals, ExpenseMate provides the tools you need to stay on top of your finances effortlessly.
 
-## Features
 
 ### Features
 
@@ -78,9 +77,13 @@ Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and
 - Web browser for accessing the web version.
 - A bank account or credit card (optional, for automatic tracking).
 
+### Tools used
+
+NextJs, Typescript, Shadcn/ui, clerk, 
+
 ## Contributing
 
-We welcome contributions from the community! If you have ideas for new features or improvements, please:
+I welcome contributions from the community! If you have ideas for new features or improvements, please:
 
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature/YourFeature`).
