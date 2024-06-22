@@ -1,6 +1,6 @@
 import { SignIn } from "@clerk/nextjs";
-import Image from 'next/image';
-import login from '../../../../assets/login-image.jpg';
+import Image from "next/image";
+import login from "../../../../assets/login-image.jpg";
 
 export default function Page() {
   return (
@@ -15,7 +15,12 @@ export default function Page() {
         />
         <div className="space-y-4">
           <div className="space-y-2">
-            <SignIn />
+            <div className="flex items-center justify-center flex-col gap-2">
+              <h1 className=" font-bold text-[1.2625rem] leading-6">
+                Welcome Back
+              </h1>
+              <SignIn />
+            </div>
           </div>
         </div>
       </div>
