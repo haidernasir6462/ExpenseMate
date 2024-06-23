@@ -60,7 +60,8 @@ export default function Navigation() {
           <nav className="flex flex-col gap-y-2 pt-6">
             {links.map((link) => (
               <Button
-              className="flex w-full justify-start"
+                key={link.href}
+                className="flex w-full justify-start"
                 variant={pathname === link.href ? "secondary" : "ghost"}
                 onClick={() => onClick(link.href)}
               >
