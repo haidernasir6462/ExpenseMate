@@ -1,7 +1,11 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
+import { useMedia } from "react-use";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useState } from "react";
+import { Menu } from "lucide-react";
 
 interface LinkItem {
   href: string;
@@ -9,7 +13,15 @@ interface LinkItem {
 }
 
 export default function Navigation() {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
   const pathname = usePathname();
+  const isMobile = useMedia("(max-width: 1024px)", false);
+  const onClick = (href: string) => {
+    router.push(href);
+    setOpen(false);
+  };
+
   const links: LinkItem[] = [
     {
       href: "/",
@@ -32,6 +44,34 @@ export default function Navigation() {
       label: "Setting",
     },
   ];
+  if (isMobile) {
+    return (
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger>
+          <Button
+            variant="outline"
+            size="sm"
+            className="font-normal bg-white/10 hover:bg-white/20 hover:text-white border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-white focus:bg-white/30 transition"
+          >
+            <Menu className="size-4" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="px-2">
+          <nav className="flex flex-col gap-y-2 pt-6">
+            {links.map((link) => (
+              <Button
+              className="flex w-full justify-start"
+                variant={pathname === link.href ? "secondary" : "ghost"}
+                onClick={() => onClick(link.href)}
+              >
+                {link.label}
+              </Button>
+            ))}
+          </nav>
+        </SheetContent>
+      </Sheet>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center gap-x-4">
