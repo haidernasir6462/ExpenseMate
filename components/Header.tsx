@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import { Loader2 } from "lucide-react";
 export default function Header() {
   const { user } = useUser();
+
   return (
     <header className="bg-gradient-to-b from-blue-600 to-blue-400 px-4 lg:px-14 py-8 pb-36">
       <div className="max-w-screen-2xl mx-auto">
