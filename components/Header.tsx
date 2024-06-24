@@ -1,8 +1,10 @@
-import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
+"use client";
+import { ClerkLoaded, ClerkLoading, UserButton, useUser } from "@clerk/nextjs";
 import HeaderLogo from "@/components/HeaderLogo";
 import Navigation from "@/components/Navigation";
 import { Loader2 } from "lucide-react";
 export default function Header() {
+  const { user } = useUser();
   return (
     <header className="bg-gradient-to-b from-blue-600 to-blue-400 px-4 lg:px-14 py-8 pb-36">
       <div className="max-w-screen-2xl mx-auto">
@@ -19,7 +21,7 @@ export default function Header() {
           </ClerkLoading>
         </div>
         <h1 className="lg:pl-8 pt-8 text-white text-xl lg:text-4xl">
-          Welcome Back 
+          Welcome Back, {user?.firstName} 👋🏻
         </h1>
       </div>
     </header>
