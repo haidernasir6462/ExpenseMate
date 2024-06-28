@@ -79,7 +79,7 @@ Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and
 
 ### Tools used
 
-NextJs, Typescript, Shadcn/ui, clerk, Hono, 
+NextJs, Typescript, Shadcn/ui, clerk, Hono, Drizzle ORM, Neon, 
 
 ## Contributing
 
