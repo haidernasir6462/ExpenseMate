@@ -1,20 +1,28 @@
-import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
-import Image from "next/image";
+import React from "react";
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 
 export default function Home() {
-  return <div>Dashboard</div>;
+  const { data: accounts, isLoading, error } = useGetAccounts();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching accounts: {error.message}</div>;
+  }
+
+  return (
+    <div>
+      {accounts?.length ? (
+        accounts.map((account) => (
+          <div key={account.id}>
+            <p>{account.name}</p>
+          </div>
+        ))
+      ) : (
+        <div>No accounts found.</div>
+      )}
+    </div>
+  );
 }
-
-// import { neon } from '@neondatabase/serverless';
-
-// async function getData() {
-//   const sql = neon(process.env.DATABASE_URL!);
-//   const response = await sql`SELECT version()`;
-//   return response[0].version;
-// }
-
-// export default async function Page() {
-//   const data = await getData();
-//   return <>{data}</>;
-// }
