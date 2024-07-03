@@ -1,8 +1,11 @@
+"use client"
 import React from "react";
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 
 export default function Home() {
   const { data: accounts, isLoading, error } = useGetAccounts();
+  console.log("🚀 ~ Home ~ error:", error)
+  console.log("🚀 ~ Home ~ accounts:", accounts)
 
   if (isLoading) {
     return <div>Loading...</div>;
