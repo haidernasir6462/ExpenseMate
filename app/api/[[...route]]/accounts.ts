@@ -1,6 +1,8 @@
 import { db } from "@/db/drizzle";
 import { accounts } from "@/db/schema";
+import { auth } from "@clerk/nextjs/server";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
+import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 
 const app = new Hono().get(
@@ -18,7 +20,8 @@ const app = new Hono().get(
         id: accounts.id,
         name: accounts.name,
       })
-      .from(accounts);
+      .from(accounts)
+      // .where(eq(accounts.userId, auth.userId));
 
     return c.json({
       data,
