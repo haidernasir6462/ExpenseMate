@@ -23,6 +23,7 @@ const app = new Hono().get(
       .from(accounts)
       // .where(eq(accounts.userId, auth.userId));
 
+
     return c.json({
       data,
     });
