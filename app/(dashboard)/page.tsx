@@ -5,20 +5,20 @@ import { Button } from "@/components/ui/button";
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 
 export default function Home() {
-  const { data: accounts, isLoading, error } = useGetAccounts();
+  // const { data: accounts, isLoading, error } = useGetAccounts();
   const { onOpen } = useNewAccount();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error fetching accounts: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Error fetching accounts: {error.message}</div>;
+  // }
 
   return (
     <>
-      <div>
+      {/* <div>
         {accounts?.length ? (
           accounts.map((account) => (
             <div key={account.id}>
@@ -28,7 +28,7 @@ export default function Home() {
         ) : (
           <div>No accounts found.</div>
         )}
-      </div>
+      </div> */}
       <Button onClick={onOpen}> Create a new transaction</Button>
     </>
   );

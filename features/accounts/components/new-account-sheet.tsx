@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Sheet,
   SheetContent,
@@ -6,6 +6,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { AccountForm } from "./account-form";
 import { useNewAccount } from "../hooks/use-new-account";
 
 export const NewAccountSheet = () => {
@@ -19,6 +20,7 @@ export const NewAccountSheet = () => {
             Create new account to track your transcation
           </SheetDescription>
         </SheetHeader>
+        <AccountForm onsubmit={() => void {}} disable={false} />
       </SheetContent>
     </Sheet>
   );
