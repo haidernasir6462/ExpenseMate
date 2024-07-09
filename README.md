@@ -1,7 +1,11 @@
 # ExpenseMate
 ## Introduction
 
-Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and managing your budget efficiently. Whether you want to monitor your daily spending or plan for future financial goals, ExpenseMate provides the tools you need to stay on top of your finances effortlessly.
+Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and managing your budget efficiently. Whether you want to monitor your daily spending or plan for future financial goals, ExpenseMate provides the tools to stay on top of your finances effortlessly.
+
+### Tools used
+
+NextJs, Typescript, Shadcn/ui, clerk, Hono, Drizzle ORM, Neon, zustand
 
 
 ### Features
@@ -77,9 +81,6 @@ Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and
 - Web browser for accessing the web version.
 - A bank account or credit card (optional, for automatic tracking).
 
-### Tools used
-
-NextJs, Typescript, Shadcn/ui, clerk, Hono, Drizzle ORM, Neon, 
 
 ## Contributing
 
