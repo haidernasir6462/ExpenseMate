@@ -44,7 +44,7 @@ export const AccountForm = ({
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log("🚀 ~ handleSubmit ~ values:", values);
+    onsubmit(values)
   };
 
   const handleDelete = () => {
