@@ -10,13 +10,13 @@ import { createId } from "@paralleldrive/cuid2";
 const app = new Hono()
   .get(
     "/",
-    clerkMiddleware(),
-    async (c) => {
-      const auth = getAuth(c);
-      if (!auth?.userId) {
-        return c.json({ error: "unauthorized" }, 401);
-      }
-    },
+    // clerkMiddleware(),
+    // async (c) => {
+    //   const auth = getAuth(c);
+    //   if (!auth?.userId) {
+    //     return c.json({ error: "unauthorized" }, 401);
+    //   }
+    // },
     async (c) => {
       const data = await db
         .select({
