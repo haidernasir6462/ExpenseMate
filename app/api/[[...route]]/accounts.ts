@@ -18,6 +18,7 @@ const app = new Hono()
     //   }
     // },
     async (c) => {
+    // using drizzle ORM structure
       const data = await db
         .select({
           id: accounts.id,
@@ -46,7 +47,7 @@ const app = new Hono()
       if (!auth?.userId) {
         return c.json({ error: "unauthorized" }, 401);
       }
-
+      // using drizzle ORM
       const [data] = await db
         .insert(accounts)
         .values({
