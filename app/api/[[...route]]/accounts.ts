@@ -8,39 +8,35 @@ import { zValidator } from "@hono/zod-validator";
 import { createId } from "@paralleldrive/cuid2";
 
 const app = new Hono()
-  .get(
-    "/",
-    // clerkMiddleware(),
-    // async (c) => {
-    //   const auth = getAuth(c);
-    //   if (!auth?.userId) {
-    //     return c.json({ error: "unauthorized" }, 401);
-    //   }
-    // },
+  .get("/", 
+    clerkMiddleware(), 
     async (c) => {
-    // using drizzle ORM structure
-      const data = await db
-        .select({
-          id: accounts.id,
-          name: accounts.name,
-        })
-        .from(accounts)
-      // .where(eq(accounts.userId, auth?.userId));
-
-      return c.json({
-        data,
-      });
+    const auth = getAuth(c);
+    if (!auth?.userId) {
+      return c.json({ error: "Unauthorized" }, 401);
     }
-  )
+    // using drizzle ORM structure
+    const data = await db
+      .select({
+        id: accounts.id,
+        name: accounts.name,
+      })
+      .from(accounts)
+      .where(eq(accounts.userId, auth?.userId));
+
+    return c.json({
+      data,
+    });
+  })
   .post(
     "/",
+    clerkMiddleware(),
     zValidator(
       "json",
       insertAccountSchema.pick({
         name: true,
       })
     ),
-    clerkMiddleware(),
     async (c) => {
       const values = c.req.valid("json");
       const auth = getAuth(c);
