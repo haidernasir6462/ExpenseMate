@@ -5,35 +5,39 @@ Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and
 
 ### Tools used
 
-  **Frontend**
+### Frontend
 
-       ** Next.js**
-            A React framework for building server-side rendered and statically generated web applications.
-            
-        **TypeScript**
-            A strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
-            
-        **shadcn/ui**
-            A UI component library designed for building accessible and responsive interfaces.
-            
-        **Clerk**
-            Authentication and user management solution for modern applications.
-            
-  **Backend**
-        **Hono**
-        A minimalist web framework for building APIs and web applications.
-        
-        **Drizzle ORM**
-        A TypeScript-first ORM for SQL databases, designed to be easy to use and type-safe.
-        
-  **Database**
-        **Neon**
-        A modern serverless PostgreSQL solution that offers a scalable and performant database service.
-        
-  **State Management**
-        **Zustand**
-        A small, fast, and scalable state management library for React applications.
-        
+- **Next.js**
+  - A React framework for building server-side rendered and statically generated web applications.
+
+- **TypeScript**
+  - A strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
+
+- **shadcn/ui**
+  - A UI component library designed for building accessible and responsive interfaces.
+
+- **Clerk**
+  - Authentication and user management solution for modern applications.
+
+### Backend
+
+- **Hono**
+  - A minimalist web framework for building APIs and web applications.
+
+- **Drizzle ORM**
+  - A TypeScript-first ORM for SQL databases, designed to be easy to use and type-safe.
+
+### Database
+
+- **Neon**
+  - A modern serverless PostgreSQL solution that offers a scalable and performant database service.
+
+### State Management
+
+- **Zustand**
+  - A small, fast, and scalable state management library for React applications.
+
+
 
 ### Features
 
