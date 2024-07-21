@@ -66,6 +66,7 @@ export const AccountForm = ({
                 <Input
                   placeholder="e.g. Card, Cash"
                   disabled={disable}
+                  required
                   {...field}
                 />
               </FormControl>
