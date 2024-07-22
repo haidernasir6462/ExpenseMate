@@ -1,16 +1,14 @@
 import { db } from "@/db/drizzle";
 import { accounts, insertAccountSchema } from "@/db/schema";
-import { auth } from "@clerk/nextjs/server";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
-import { eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { createId } from "@paralleldrive/cuid2";
+import { z } from "zod";
 
 const app = new Hono()
-  .get("/", 
-    clerkMiddleware(), 
-    async (c) => {
+  .get("/", clerkMiddleware(), async (c) => {
     const auth = getAuth(c);
     if (!auth?.userId) {
       return c.json({ error: "Unauthorized" }, 401);
@@ -52,6 +50,36 @@ const app = new Hono()
           ...values,
         })
         .returning();
+      return c.json({ data });
+    }
+  )
+  .post(
+    "/bulk-delete",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      z.object({
+        ids: z.string().array(),
+      })
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      const values = c.req.valid("json");
+
+      if (!auth?.userId) {
+        return c.json({ error: "unauthorized" }, 401);
+      }
+
+      const data = await db
+        .delete(accounts)
+        .where(
+          and(
+            //only user can delete its own account
+            eq(accounts.userId, auth.userId),
+            inArray(accounts.id, values.ids)
+          )
+        )
+        .returning({ id: accounts.id });
       return c.json({ data });
     }
   );
