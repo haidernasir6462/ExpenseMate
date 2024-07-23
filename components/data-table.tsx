@@ -29,8 +29,8 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterKey: string;
-  onDelete: (rows: Row<TData[]>) => void
-  disabled?: boolean
+  onDelete: (rows: Row<TData[]>) => void;
+  disabled?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -38,7 +38,7 @@ export function DataTable<TData, TValue>({
   data,
   filterKey,
   disabled,
-  onDelete
+  onDelete,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -63,6 +63,12 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const getIdsOfRows = (rows: any) => {
+    rows.map((row: any) => {
+      const ids = row.original.id;
+      return ids;
+    });
+  };
   return (
     <div>
       <div className="flex items-center py-4 justify-between">
@@ -84,6 +90,10 @@ export function DataTable<TData, TValue>({
             variant={"outline"}
             className="ml-auto font-normal text-xs"
             disabled={disabled}
+            onClick={() => {
+              onDelete(table.getFilteredSelectedRowModel().rows);
+              table.resetRowSelection();
+            }}
           >
             <Trash className="size-4 mr-2" />
             {`Delete (${table.getFilteredSelectedRowModel().rows.length})`}
