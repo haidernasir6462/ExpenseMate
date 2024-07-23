@@ -29,7 +29,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterKey: string;
-  onDelete: (rows: Row<TData[]>) => void;
+  onDelete: (rows: Row<TData>[]) => void;
   disabled?: boolean;
 }
 
@@ -63,12 +63,6 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  const getIdsOfRows = (rows: any) => {
-    rows.map((row: any) => {
-      const ids = row.original.id;
-      return ids;
-    });
-  };
   return (
     <div>
       <div className="flex items-center py-4 justify-between">

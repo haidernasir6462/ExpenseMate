@@ -11,7 +11,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { columns } from "./columns";
 import { Loader2, Plus } from "lucide-react";
-import { Row } from "@tanstack/react-table";
 
 export default function AccountPage() {
   const { data: accounts, isLoading, error } = useGetAccounts();
@@ -58,7 +57,6 @@ export default function AccountPage() {
               data={accounts || []}
               filterKey="name"
               onDelete={(rows) => {
-                console.log("🚀 ~ onDelete ~ rows:", rows)
                 const ids = rows.map((row) => row.original.id);
                 deleteAccount.mutate({ ids });
               }}
@@ -69,7 +67,4 @@ export default function AccountPage() {
       </div>
     </>
   );
-}
-function usestate(arg0: boolean): [any, any] {
-  throw new Error("Function not implemented.");
 }
