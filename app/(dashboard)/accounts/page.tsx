@@ -17,7 +17,7 @@ export default function AccountPage() {
   const { onOpen } = useNewAccount();
   const deleteAccount = useDeleteAccounts();
 
-  if (!accounts?.length) {
+  if (isLoading || error) {
     return (
       <div className="mx-auto max-w-screen-2xl w-full pb-10 -mt-24">
         <Card className="border-none drop-shadow-none">
