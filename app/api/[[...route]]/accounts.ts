@@ -54,7 +54,7 @@ const app = new Hono()
     }
   )
   .post(
-    "/bulk-delete",
+    "/bulk-delete-accounts",
     clerkMiddleware(),
     zValidator(
       "json",
@@ -78,6 +78,33 @@ const app = new Hono()
             eq(accounts.userId, auth.userId),
             inArray(accounts.id, values.ids)
           )
+        )
+        .returning({ id: accounts.id });
+      return c.json({ data });
+    }
+  )
+  .post(
+    "/update-account",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      })
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      if (!auth?.userId) {
+        return c.json({ error: "Unauhorized" }, 401);
+      }
+      const values = c.req.valid("json");
+
+      const data = await db
+        .update(accounts)
+        .set({ name: values.name })
+        .where(
+          and(eq(accounts.userId, auth.userId), eq(accounts.id, values.id))
         )
         .returning({ id: accounts.id });
       return c.json({ data });
