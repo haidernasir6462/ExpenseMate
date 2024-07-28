@@ -11,6 +11,7 @@ import { useNewAccount } from "../hooks/use-new-account";
 import { usePostCreateAccount } from "../api/use-create-accounts";
 import { insertAccountSchema } from "@/db/schema";
 import { z } from "zod";
+import { useUpdateAccount } from "../api/use-update-account";
 
 const formSchema = insertAccountSchema.pick({
   name: true,
@@ -19,11 +20,23 @@ const formSchema = insertAccountSchema.pick({
 type FormValues = z.input<typeof formSchema>;
 
 export const NewAccountSheet = () => {
-  const { isOpen, onClose } = useNewAccount();
-  const mutation = usePostCreateAccount();
+  const { isOpen, onClose, row } = useNewAccount();
+  const createAccount = usePostCreateAccount();
+  const updateAccount = useUpdateAccount();
 
   const CreateAccount = (values: FormValues) => {
-    mutation.mutate(values, {
+    createAccount.mutate(values, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
+  };
+  const UpdateAccount = (values: FormValues) => {
+    const postData = {
+      id: row.id,
+      ...values,
+    };
+    updateAccount.mutate(postData, {
       onSuccess: () => {
         onClose();
       },
@@ -39,10 +52,11 @@ export const NewAccountSheet = () => {
           </SheetDescription>
         </SheetHeader>
         <AccountForm
-          onsubmit={CreateAccount}
-          disable={mutation.isPending}
+          id={row.id}
+          onsubmit={row.name ? UpdateAccount : CreateAccount}
+          disable={row.name ? updateAccount.isPending : createAccount.isPending}
           defaultValues={{
-            name: "",
+            name: "" || row.name,
           }}
         />
       </SheetContent>
