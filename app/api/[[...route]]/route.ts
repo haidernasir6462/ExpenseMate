@@ -3,11 +3,10 @@ import accounts from "./accounts"
 import { handle } from '@hono/node-server/vercel'
 import type { PageConfig } from 'next'
 
-export const config: PageConfig = {
-    api: {
-      bodyParser: false,
-    },
-  }
+
+export const runtime = 'edge'
+
+
 
 const app = new Hono().basePath('/api')
 
