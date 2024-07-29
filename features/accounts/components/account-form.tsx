@@ -81,11 +81,11 @@ export const AccountForm = ({
           <Button
             type="button"
             variant="outline"
-            onSubmit={handleDelete}
+            onClick={handleDelete}
             disabled={disable}
             className="w-full"
           >
-            <Trash className="size-3" />
+            <Trash className="size-3 mr-2" />
             <span className="ml-4">Delete</span>
           </Button>
         )}
