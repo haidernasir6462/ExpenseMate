@@ -53,6 +53,35 @@ const app = new Hono()
         .returning();
       return c.json({ data });
     }
-  );
+  ).post(
+    "/bulk-delete-transactions",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      z.object({
+        ids: z.string().array(),
+      })
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      const values = c.req.valid("json");
+
+      if (!auth?.userId) {
+        return c.json({ error: "unauthorized" }, 401);
+      }
+
+      const data = await db
+        .delete(transactions)
+        .where(
+          and(
+            //only user can delete its own account
+            eq(transactions.userId, auth.userId),
+            inArray(transactions.id, values.ids)
+          )
+        )
+        .returning({ id: transactions.id });
+      return c.json({ data });
+    }
+  )
 
 export default app;
