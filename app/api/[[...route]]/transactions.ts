@@ -105,7 +105,39 @@ const app = new Hono()
         .update(transactions)
         .set({ name: values.name })
         .where(
-          and(eq(transactions.userId, auth.userId), eq(transactions.id, values.id))
+          and(
+            eq(transactions.userId, auth.userId),
+            eq(transactions.id, values.id)
+          )
+        )
+        .returning({ id: transactions.id });
+      return c.json({ data });
+    }
+  )
+  .post(
+    "/delete-transaction",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      z.object({
+        id: z.string(),
+      })
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      if (!auth?.userId) {
+        return c.json({ error: "Unauhorized" }, 401);
+      }
+      const values = c.req.valid("json");
+
+      const data = await db
+        .delete(transactions)
+        .where(
+          and(
+            //only user can delete its own account
+            eq(transactions.userId, auth.userId),
+            eq(transactions.id, values.id)
+          )
         )
         .returning({ id: transactions.id });
       return c.json({ data });
