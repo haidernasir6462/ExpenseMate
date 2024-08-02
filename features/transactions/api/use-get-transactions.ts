@@ -10,7 +10,7 @@ export const useGetTransactions = () => {
         throw new Error("failed to fetch transactions");
       }
 
-      const {data}  = await response.json();
+      const { data } = await response.json();
       return data;
     },
   });
