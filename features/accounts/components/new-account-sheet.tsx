@@ -12,8 +12,8 @@ import { usePostCreateAccount } from "../api/use-create-accounts";
 import { insertAccountSchema } from "@/db/schema";
 import { z } from "zod";
 import { useUpdateAccount } from "../api/use-update-account";
-import { useConfirm } from "../hooks/use-confirm-modal";
 import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
+import { useConfirm } from "@/components/use-confirm-modal";
 
 const formSchema = insertAccountSchema.pick({
   name: true,

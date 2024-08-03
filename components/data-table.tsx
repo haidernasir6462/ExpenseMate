@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { useConfirm } from "@/features/accounts/hooks/use-confirm-modal";
 import {
   Table,
   TableBody,
@@ -26,6 +25,7 @@ import {
 } from "@tanstack/react-table";
 
 import { Trash } from "lucide-react";
+import { useConfirm } from "./use-confirm-modal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

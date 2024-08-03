@@ -1,16 +1,18 @@
 "use client";
 import React from "react";
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useConfirm } from "@/components/use-confirm-modal";
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useConfirm } from "@/features/accounts/hooks/use-confirm-modal";
-import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
+
 type Props = {
   row: {
     name: string;
