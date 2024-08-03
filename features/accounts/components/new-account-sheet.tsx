@@ -12,8 +12,8 @@ import { usePostCreateAccount } from "../api/use-create-accounts";
 import { insertAccountSchema } from "@/db/schema";
 import { z } from "zod";
 import { useUpdateAccount } from "../api/use-update-account";
-import { useDeleteAccounts } from "@/features/accounts/api/use-delete-accounts";
 import { useConfirm } from "../hooks/use-confirm-modal";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
 
 const formSchema = insertAccountSchema.pick({
   name: true,
@@ -25,7 +25,7 @@ export const NewAccountSheet = () => {
   const { isOpen, onClose, row } = useNewAccount();
   const createAccount = usePostCreateAccount();
   const updateAccount = useUpdateAccount();
-  const deleteAccount = useDeleteAccounts();
+  const deleteAccount = useBulkDeleteAccounts();
 
   const [ConfirmationDialog, confirm] = useConfirm(
     "Are you sure?",

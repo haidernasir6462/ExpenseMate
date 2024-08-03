@@ -2,7 +2,7 @@
 import React from "react";
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
-import { useDeleteAccounts } from "@/features/accounts/api/use-delete-accounts";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
 
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/data-table";
@@ -15,7 +15,7 @@ import { Loader2, Plus } from "lucide-react";
 export default function AccountPage() {
   const { data: accounts, isLoading, error } = useGetAccounts();
   const { onOpen } = useNewAccount();
-  const deleteAccount = useDeleteAccounts();
+  const deleteAccount = useBulkDeleteAccounts();
 
   if (isLoading || error) {
     return (

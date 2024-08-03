@@ -6,7 +6,7 @@ import { toast } from "sonner";
 type ResponseType = InferResponseType<typeof client.api.accounts["bulk-delete-accounts"]["$post"]>;
 type RequestType = InferRequestType<typeof client.api.accounts["bulk-delete-accounts"]["$post"]>["json"];
 
-export const useDeleteAccounts = () => {
+export const useBulkDeleteAccounts = () => {
     const queryclient = useQueryClient();
     const mutation = useMutation<ResponseType, Error, RequestType>({
       mutationFn: async (json) => {

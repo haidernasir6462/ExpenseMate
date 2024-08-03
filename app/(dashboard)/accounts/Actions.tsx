@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useDeleteAccounts } from "@/features/accounts/api/use-delete-accounts";
 import { useConfirm } from "@/features/accounts/hooks/use-confirm-modal";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
 type Props = {
   row: {
     name: string;
@@ -20,7 +20,7 @@ type Props = {
 
 export default function Actions({ row }: Props) {
   const { onOpen, setRow } = useNewAccount();
-  const deleteAccount = useDeleteAccounts();
+  const deleteAccount = useBulkDeleteAccounts();
 
   const [ConfirmationDialog, confirm] = useConfirm(
     "Are you sure?",
