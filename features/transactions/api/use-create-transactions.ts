@@ -16,7 +16,7 @@ export const usePostCreateTransaction = () => {
     onSuccess: () => {
       //manually refetch transaction as we passed transaction key
       toast.success("Transaction created successfully");
-      queryclient.invalidateQueries({ queryKey: ["transaction"] });
+      queryclient.invalidateQueries({ queryKey: ["transactions"] });
     },
     onError: () => {
       toast.error("Transaction Creation failed");
