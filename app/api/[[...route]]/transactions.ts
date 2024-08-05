@@ -85,7 +85,7 @@ const app = new Hono()
     }
   )
   .post(
-    "/update-transactions",
+    "/update-transaction",
     clerkMiddleware(),
     zValidator(
       "json",

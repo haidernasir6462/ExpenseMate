@@ -1,22 +1,21 @@
 "use client";
 import React from "react";
-import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
-import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
+import { Loader2, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/data-table";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
+import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
+import { useGetTransactions } from "@/features/transactions/api/use-get-transactions";
+import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bulk-delete-transactions";
 import { columns } from "./columns";
-import { Loader2, Plus } from "lucide-react";
 
-export default function AccountPage() {
-  const { data: accounts, isLoading, error } = useGetAccounts();
-  const { onOpen } = useNewAccount();
-  const deleteAccount = useBulkDeleteAccounts();
-
+export default function TransactionPage() {
+  const { onOpen } = useNewTransaction();
+  const { data: transaction, isLoading, error } = useGetTransactions();
+  const bulkdeleteTransactions = useBulkDeleteTransactions();
   if (isLoading || error) {
     return (
       <div className="mx-auto max-w-screen-2xl w-full pb-10 -mt-24">
@@ -39,14 +38,13 @@ export default function AccountPage() {
       </div>
     );
   }
-
   return (
     <>
       <div className="mx-auto max-w-screen-2xl w-full pb-10 -mt-24">
         <Card className="border-none drop-shadow-none">
           <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-            <CardTitle className="text-xl line-clamp-1">Account</CardTitle>
-            <Button size="sm" onClick={onOpen}>
+            <CardTitle className="text-xl line-clamp-1">Transactions</CardTitle>
+            <Button size="sm" onClick={() => onOpen()}>
               <Plus className="size- mr-2" />
               Add new
             </Button>
@@ -54,13 +52,15 @@ export default function AccountPage() {
           <CardContent>
             <DataTable
               columns={columns}
-              data={accounts || []}
+              data={transaction || []}
               filterKey="name"
               onDelete={(rows) => {
                 const ids = rows.map((row) => row.original.id);
-                deleteAccount.mutate({ ids });
+                bulkdeleteTransactions.mutate({
+                  ids,
+                });
               }}
-              disabled={deleteAccount.isPending}
+              disabled={bulkdeleteTransactions.isPending}
             />
           </CardContent>
         </Card>

@@ -1,8 +1,5 @@
 "use client";
 import React from "react";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
-import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +10,9 @@ import { useConfirm } from "@/components/use-confirm-modal";
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
+import { useDeleteTransaction } from "@/features/transactions/api/use-delete-transaction";
+import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
+
 type Props = {
   row: {
     name: string;
@@ -21,12 +21,12 @@ type Props = {
 };
 
 export default function Actions({ row }: Props) {
-  const { onOpen, setRow } = useNewAccount();
-  const deleteAccount = useBulkDeleteAccounts();
+  const { onOpen, setRow } = useNewTransaction();
+  const deleteTransaction = useDeleteTransaction();
 
   const [ConfirmationDialog, confirm] = useConfirm(
     "Are you sure?",
-    `This will delete the ${row.name}'s account`
+    `This will delete the ${row.name}'s transaction`
   );
   return (
     <>
@@ -49,8 +49,8 @@ export default function Actions({ row }: Props) {
             onClick={async () => {
               const ok = await confirm();
               if (ok) {
-                const ids = [row.id];
-                deleteAccount.mutate({ ids });
+                const id = row.id;
+                deleteTransaction.mutate({ id });
               }
             }}
           >
