@@ -84,6 +84,36 @@ const app = new Hono()
       return c.json({ data });
     }
   )
+  .post(
+    "/update-category",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      })
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      if (!auth?.userId) {
+        return c.json({ error: "Unauhorized" }, 401);
+      }
+      const values = c.req.valid("json");
+
+      const data = await db
+        .update(categories)
+        .set({ name: values.name })
+        .where(
+          and(
+            eq(categories.userId, auth.userId),
+            eq(categories.id, values.id)
+          )
+        )
+        .returning({ id: categories.id });
+      return c.json({ data });
+    }
+  )
   
 
 export default app;
