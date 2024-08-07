@@ -8,7 +8,7 @@ export const accounts = pgTable("accounts", {
     userId: text("user_id").notNull()
 })
 
-export const transactions = pgTable("transactions", {
+export const categories = pgTable("categories", {
     id: text("id").primaryKey(),
     plaidId: text("plaid_id"),
     name: text("name").notNull(),
@@ -17,4 +17,4 @@ export const transactions = pgTable("transactions", {
 
 // Schema for inserting a account - can be used to validate API requests
 export const insertAccountSchema = createInsertSchema(accounts) 
-export const insertTransactionSchema = createInsertSchema(transactions) 
+export const insertCategorySchema = createInsertSchema(categories) 
