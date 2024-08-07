@@ -114,6 +114,34 @@ const app = new Hono()
       return c.json({ data });
     }
   )
-  
+  .post(
+    "/delete-category",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      z.object({
+        id: z.string(),
+      })
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      if (!auth?.userId) {
+        return c.json({ error: "Unauhorized" }, 401);
+      }
+      const values = c.req.valid("json");
+
+      const data = await db
+        .delete(categories)
+        .where(
+          and(
+            //only user can delete its own account
+            eq(categories.userId, auth.userId),
+            eq(categories.id, values.id)
+          )
+        )
+        .returning({ id: categories.id });
+      return c.json({ data });
+    }
+  );
 
 export default app;
