@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type NewTransactionState = {
+type NewCategoryState = {
   row: { name: string; id: string };
   isOpen: boolean;
   onClose: () => void;
@@ -8,7 +8,7 @@ type NewTransactionState = {
   setRow: (values: any) => void;
 };
 
-export const useNewTransaction = create<NewTransactionState>((set) => ({
+export const useNewCategory = create<NewCategoryState>((set) => ({
   row: { name: "", id: "" },
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
