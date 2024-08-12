@@ -52,7 +52,7 @@ export const useConfirm = (
           >
             Cancel
           </Button>
-          <Button size="sm" type="button" onClick={handleConfirm}>
+          <Button size="sm" type="button" variant="destructive" onClick={handleConfirm}>
             Confirm
           </Button>
         </DialogFooter>

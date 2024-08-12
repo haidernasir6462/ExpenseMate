@@ -26,6 +26,7 @@ import {
 
 import { Trash } from "lucide-react";
 import { useConfirm } from "./use-confirm-modal";
+import { usePathname } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,10 +48,12 @@ export function DataTable<TData, TValue>({
     []
   );
   const [rowSelection, setRowSelection] = React.useState({});
+  const pathname = usePathname()
+
 
   const [ConfirmationDialog, confirm] = useConfirm(
     "Are you sure?",
-    "This will delete the accounts"
+    `This will permanently delete the ${pathname.split("/")[1]}`
   );
 
   const table = useReactTable({
