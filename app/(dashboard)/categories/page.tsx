@@ -7,15 +7,15 @@ import { DataTable } from "@/components/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
-import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
-import { useGetTransactions } from "@/features/transactions/api/use-get-transactions";
-import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bulk-delete-transactions";
+import { useNewCategory } from "@/features/categories/hooks/use-new-category";
+import { useGetCategories } from "@/features/categories/api/use-get-categories";
+import { useBulkDeleteCategories } from "@/features/categories/api/use-bulk-delete-categories";
 import { columns } from "./columns";
 
-export default function TransactionPage() {
-  const { onOpen } = useNewTransaction();
-  const { data: transaction, isLoading, error } = useGetTransactions();
-  const bulkdeleteTransactions = useBulkDeleteTransactions();
+export default function CategoryPage() {
+  const { onOpen } = useNewCategory();
+  const { data: category, isLoading, error } = useGetCategories();
+  const bulkdeleteCategories = useBulkDeleteCategories();
   if (isLoading || error) {
     return (
       <div className="mx-auto max-w-screen-2xl w-full pb-10 -mt-24">
@@ -43,7 +43,7 @@ export default function TransactionPage() {
       <div className="mx-auto max-w-screen-2xl w-full pb-10 -mt-24">
         <Card className="border-none drop-shadow-none">
           <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-            <CardTitle className="text-xl line-clamp-1">Transactions</CardTitle>
+            <CardTitle className="text-xl line-clamp-1">Categories</CardTitle>
             <Button size="sm" onClick={() => onOpen()}>
               <Plus className="size- mr-2" />
               Add new
@@ -52,15 +52,15 @@ export default function TransactionPage() {
           <CardContent>
             <DataTable
               columns={columns}
-              data={transaction || []}
+              data={category || []}
               filterKey="name"
               onDelete={(rows) => {
                 const ids = rows.map((row) => row.original.id);
-                bulkdeleteTransactions.mutate({
+                bulkdeleteCategories.mutate({
                   ids,
                 });
               }}
-              disabled={bulkdeleteTransactions.isPending}
+              disabled={bulkdeleteCategories.isPending}
             />
           </CardContent>
         </Card>
