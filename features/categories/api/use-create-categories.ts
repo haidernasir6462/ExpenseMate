@@ -3,23 +3,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 import { toast } from "sonner";
 
-type ResponseType = InferResponseType<typeof client.api.transactions.$post>;
-type RequestType = InferRequestType<typeof client.api.transactions.$post>["json"];
+type ResponseType = InferResponseType<typeof client.api.categories.$post>;
+type RequestType = InferRequestType<typeof client.api.categories.$post>["json"];
 
-export const usePostCreateTransaction = () => {
+export const usePostCreateCategory = () => {
   const queryclient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.transactions.$post({ json });
+      const response = await client.api.categories.$post({ json });
       return await response.json();
     },
     onSuccess: () => {
       //manually refetch transaction as we passed transaction key
-      toast.success("Transaction created successfully");
-      queryclient.invalidateQueries({ queryKey: ["transactions"] });
+      toast.success("Category created successfully");
+      queryclient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: () => {
-      toast.error("Transaction Creation failed");
+      toast.error("Category Creation failed");
     },
   });
   return mutation;

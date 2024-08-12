@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { transactions, insertTransactionSchema } from "@/db/schema";
+import { categories, insertCategorySchema } from "@/db/schema";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { and, eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
@@ -16,11 +16,11 @@ const app = new Hono()
     // using drizzle ORM structure
     const data = await db
       .select({
-        id: transactions.id,
-        name: transactions.name,
+        id: categories.id,
+        name: categories.name,
       })
-      .from(transactions)
-      .where(eq(transactions.userId, auth?.userId));
+      .from(categories)
+      .where(eq(categories.userId, auth?.userId));
 
     return c.json({
       data,
@@ -31,7 +31,7 @@ const app = new Hono()
     clerkMiddleware(),
     zValidator(
       "json",
-      insertTransactionSchema.pick({
+      insertCategorySchema.pick({
         name: true,
       })
     ),
@@ -44,7 +44,7 @@ const app = new Hono()
       }
       // using drizzle ORM
       const [data] = await db
-        .insert(transactions)
+        .insert(categories)
         .values({
           id: createId(),
           userId: auth.userId,
@@ -55,7 +55,7 @@ const app = new Hono()
     }
   )
   .post(
-    "/bulk-delete-transactions",
+    "/bulk-delete-categories",
     clerkMiddleware(),
     zValidator(
       "json",
@@ -72,20 +72,20 @@ const app = new Hono()
       }
 
       const data = await db
-        .delete(transactions)
+        .delete(categories)
         .where(
           and(
             //only user can delete its own account
-            eq(transactions.userId, auth.userId),
-            inArray(transactions.id, values.ids)
+            eq(categories.userId, auth.userId),
+            inArray(categories.id, values.ids)
           )
         )
-        .returning({ id: transactions.id });
+        .returning({ id: categories.id });
       return c.json({ data });
     }
   )
   .post(
-    "/update-transaction",
+    "/update-category",
     clerkMiddleware(),
     zValidator(
       "json",
@@ -102,20 +102,20 @@ const app = new Hono()
       const values = c.req.valid("json");
 
       const data = await db
-        .update(transactions)
+        .update(categories)
         .set({ name: values.name })
         .where(
           and(
-            eq(transactions.userId, auth.userId),
-            eq(transactions.id, values.id)
+            eq(categories.userId, auth.userId),
+            eq(categories.id, values.id)
           )
         )
-        .returning({ id: transactions.id });
+        .returning({ id: categories.id });
       return c.json({ data });
     }
   )
   .post(
-    "/delete-transaction",
+    "/delete-category",
     clerkMiddleware(),
     zValidator(
       "json",
@@ -131,15 +131,15 @@ const app = new Hono()
       const values = c.req.valid("json");
 
       const data = await db
-        .delete(transactions)
+        .delete(categories)
         .where(
           and(
             //only user can delete its own account
-            eq(transactions.userId, auth.userId),
-            eq(transactions.id, values.id)
+            eq(categories.userId, auth.userId),
+            eq(categories.id, values.id)
           )
         )
-        .returning({ id: transactions.id });
+        .returning({ id: categories.id });
       return c.json({ data });
     }
   );

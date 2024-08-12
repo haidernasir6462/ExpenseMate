@@ -14,10 +14,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { insertTransactionSchema } from "@/db/schema";
 import { Trash } from "lucide-react";
+import { insertCategorySchema } from "@/db/schema";
 
-const formSchema = insertTransactionSchema.pick({
+const formSchema = insertCategorySchema.pick({
   name: true,
 });
 
@@ -31,7 +31,7 @@ type Props = {
   disable?: boolean;
 };
 
-export const TransactionForm = ({
+export const CategoryForm = ({
   id,
   defaultValues,
   onsubmit,
@@ -64,7 +64,7 @@ export const TransactionForm = ({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="e.g. Card, Cash"
+                  placeholder="e.g. Category"
                   disabled={disable}
                   required
                   {...field}
@@ -75,7 +75,7 @@ export const TransactionForm = ({
           )}
         />
         <Button className="w-full" disabled={disable} type="submit">
-          {id ? "Save Changes" : "Create Transaction"}
+          {id ? "Save Changes" : "Create Category"}
         </Button>
         {!!id && (
           <Button

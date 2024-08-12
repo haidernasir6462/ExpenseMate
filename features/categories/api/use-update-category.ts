@@ -4,17 +4,17 @@ import { InferRequestType, InferResponseType } from "hono";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.transactions)["update-transaction"]["$post"]
+  (typeof client.api.categories)["update-category"]["$post"]
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.transactions)["update-transaction"]["$post"]
+  (typeof client.api.categories)["update-category"]["$post"]
 >["json"];
 
-export const useUpdateTransaction = () => {
+export const useUpdateCategory = () => {
   const queryclient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.transactions["update-transaction"][
+      const response = await client.api.categories["update-category"][
         "$post"
       ]({
         json,
@@ -22,13 +22,13 @@ export const useUpdateTransaction = () => {
       return await response.json();
     },
     onSuccess: () => {
-      //manually refetch transactions as we passed transactions key
-      toast.success("Transaction updated successfully");
-      queryclient.invalidateQueries({ queryKey: ["transactions"] });
+      //manually refetch categories as we passed categories key
+      toast.success("Category updated successfully");
+      queryclient.invalidateQueries({ queryKey: ["categories"] });
       // TODO: Also invalidate summary
     },
     onError: () => {
-      toast.error("Failed to update transactions");
+      toast.error("Failed to update Category");
     },
   });
   return mutation;

@@ -10,8 +10,8 @@ import { useConfirm } from "@/components/use-confirm-modal";
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
-import { useDeleteTransaction } from "@/features/transactions/api/use-delete-transaction";
-import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
+import { useDeleteCategory } from "@/features/categories/api/use-delete-category";
+import { useNewCategory } from "@/features/categories/hooks/use-new-category";
 
 type Props = {
   row: {
@@ -21,12 +21,12 @@ type Props = {
 };
 
 export default function Actions({ row }: Props) {
-  const { onOpen, setRow } = useNewTransaction();
-  const deleteTransaction = useDeleteTransaction();
+  const { onOpen, setRow } = useNewCategory();
+  const deleteCategory = useDeleteCategory();
 
   const [ConfirmationDialog, confirm] = useConfirm(
     "Are you sure?",
-    `This will delete the ${row.name}'s transaction`
+    `This will delete the ${row.name}'s category`
   );
   return (
     <>
@@ -50,7 +50,7 @@ export default function Actions({ row }: Props) {
               const ok = await confirm();
               if (ok) {
                 const id = row.id;
-                deleteTransaction.mutate({ id });
+                deleteCategory.mutate({ id });
               }
             }}
           >
