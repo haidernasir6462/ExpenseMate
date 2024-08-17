@@ -1,4 +1,4 @@
-import { pgTable, text } from "drizzle-orm/pg-core";
+import { integer, pgTable, text } from "drizzle-orm/pg-core";
 import { createInsertSchema} from "drizzle-zod"
 
 export const accounts = pgTable("accounts", {
@@ -13,6 +13,11 @@ export const categories = pgTable("categories", {
     plaidId: text("plaid_id"),
     name: text("name").notNull(),
     userId: text("user_id").notNull()
+})
+
+export const transactions = pgTable("transactions", {
+    id: text("id").primaryKey(),
+    amount: integer("amount").notNull()
 })
 
 // Schema for inserting a account - can be used to validate API requests
