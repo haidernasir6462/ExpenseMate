@@ -20,6 +20,10 @@ export const categories = pgTable("categories", {
   userId: text("user_id").notNull(),
 });
 
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  transactions: many(transactions),
+}));
+
 export const transactions = pgTable("transactions", {
   id: text("id").primaryKey(),
   amount: integer("amount").notNull(),
