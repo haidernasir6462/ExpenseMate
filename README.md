@@ -30,12 +30,12 @@ Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and
 ### Database
 
 - **Neon**
-  - A modern serverless PostgreSQL solution that offers a scalable and performant database service.
+  - A modern serverless PostgreSQL solution offering a scalable database service.
 
 ### State Management
 
 - **Zustand**
-  - A small, fast, and scalable state management library for React applications.
+  - A small, fast, scalable state management library for React applications.
 
 
 
@@ -58,7 +58,7 @@ Welcome to **ExpenseMate** – your ultimate companion for tracking expenses and
 - **Reports and Analytics:**
   - Generate detailed reports to analyze spending habits.
   - Monthly and yearly financial summaries.
-  - Customizable reports by category or time period.
+  - Customizable reports by category or time.
 
 - **Alerts and Notifications:**
   - Receive alerts when you are nearing your budget limits.
