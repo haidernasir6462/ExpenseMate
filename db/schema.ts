@@ -45,6 +45,11 @@ export const transactionsRealtionss = relations(transactions, ({ one }) => ({
     fields: [transactions.accountId],
     references: [accounts.id],
   }),
+
+  categories: one(categories, {
+    fields: [transactions.categoryId],
+    references: [categories.id],
+  }),
 }));
 
 // Schema for inserting a account - can be used to validate API requests
