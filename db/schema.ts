@@ -40,6 +40,13 @@ export const transactions = pgTable("transactions", {
   }),
 });
 
+export const transactionsRealtionss = relations(transactions, ({ one }) => ({
+  account: one(accounts, {
+    fields: [transactions.accountId],
+    references: [accounts.id],
+  }),
+}));
+
 // Schema for inserting a account - can be used to validate API requests
 export const insertAccountSchema = createInsertSchema(accounts);
 export const insertCategorySchema = createInsertSchema(categories);
